@@ -13,7 +13,7 @@ const Projects = () => {
       description:
        ' A fully functional e-commerce platform built for optimal scalability and performance. Features include real-time updates, secure payment processing, and advanced inventory management systems.',
       image: ecommerce,
-      github: 'https://github.com/yourusername/ecommerce-platform',
+      github: 'https://github.com/abhijith-babu-2003/ArrowMart',
       featured: true,
     },
     {
@@ -22,7 +22,7 @@ const Projects = () => {
       description:
        ' An AI-powered tool that generates stunning visuals from text prompts using OpenAI’s technology..',
       image: ai,
-      github: 'https://github.com/yourusername/ai-image-generator',
+      github: 'https://github.com/abhijith-babu-2003/AI-Assistant',
       featured: false,
     },
     {
@@ -31,7 +31,7 @@ const Projects = () => {
       description:
         'A real-time chat application with WebSocket support for instant messaging, featuring end-to-end encryption, file sharing capabilities, and multi-platform synchronization.',
       image: chat,
-      github: 'https://github.com/yourusername/chat-application',
+      github: 'https://github.com/abhijith-babu-2003/CHAT-APPLICATION-FRONTEND',
       featured: true,
     },
     {
@@ -40,7 +40,7 @@ const Projects = () => {
       description:
         'A Netflix-inspired streaming platform with movie listings, trailers, user authentication, personalized recommendations, and responsive design for all devices.',
       image: netflix,
-      github: 'https://github.com/yourusername/netflix-clone',
+      github: 'https://github.com/abhijith-babu-2003/Netfilx-clone',
       featured: false,
     },
   ];
