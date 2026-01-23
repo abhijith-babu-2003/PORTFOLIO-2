@@ -1,60 +1,116 @@
-import React from 'react';
-import { FaGithub, FaExternalLinkAlt, FaStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import ai from '../assets/ai.png'
-import chat from '../assets/Chat.png'
-import ecommerce from '../assets/e-commerce.png'
-import netflix from '../assets/netflix.png'
-
+import React from "react";
+import {
+  FaGithub,
+  FaExternalLinkAlt,
+  FaStar,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
+import ai from "../assets/ai.png";
+import chat from "../assets/Chat.png";
+import ecommerce from "../assets/e-commerce.png";
+import netflix from "../assets/netflix.png";
+import userManagement from "../assets/userManagement.png";
+import taskManager from "../assets/taskManager.png";
+import Venuo from "../assets/Venuo.png";
+import liveClassroom from "../assets/liveClassroom.png"
 const Projects = () => {
   const projectList = [
     {
       id: 1,
-      title: 'E-commerce Platform',
+      title: "E-commerce Platform",
       description:
-       ' A fully functional e-commerce platform built for optimal scalability and performance. Features include real-time updates, secure payment processing, and advanced inventory management systems.',
+        " A fully functional e-commerce platform built for optimal scalability and performance. Features include real-time updates, secure payment processing, and advanced inventory management systems.",
       image: ecommerce,
-      github: 'https://github.com/abhijith-babu-2003/ArrowMart',
+      github: "https://github.com/abhijith-babu-2003/ArrowMart",
       featured: true,
     },
     {
       id: 2,
-      title: 'AI Assistant',
+      title: "AI Assistant",
       description:
-       ' An AI-powered tool that generates stunning visuals from text prompts using OpenAI’s technology..',
+        " An AI-powered tool that generates stunning visuals from text prompts using OpenAI’s technology..",
       image: ai,
-      github: 'https://github.com/abhijith-babu-2003/AI-Assistant',
+      github: "https://github.com/abhijith-babu-2003/AI-Assistant",
       featured: false,
     },
     {
       id: 3,
-      title: 'Chat Application',
+      title: "Chat Application",
       description:
-        'A real-time chat application with WebSocket support for instant messaging, featuring end-to-end encryption, file sharing capabilities, and multi-platform synchronization.',
+        "A real-time chat application with WebSocket support for instant messaging, featuring end-to-end encryption, file sharing capabilities, and multi-platform synchronization.",
       image: chat,
-      github: 'https://github.com/abhijith-babu-2003/CHAT-APPLICATION-FRONTEND',
+      github: "https://github.com/abhijith-babu-2003/CHAT-APPLICATION-FRONTEND",
+       live: "https://vox.abhijith.site/",
       featured: true,
     },
     {
       id: 4,
-      title: 'Netflix Clone',
+      title: "Netflix Clone",
       description:
-        'A Netflix-inspired streaming platform with movie listings, trailers, user authentication, personalized recommendations, and responsive design for all devices.',
+        "A Netflix-inspired streaming platform with movie listings, trailers, user authentication, personalized recommendations, and responsive design for all devices.",
       image: netflix,
-      github: 'https://github.com/abhijith-babu-2003/Netfilx-clone',
+      github: "https://github.com/abhijith-babu-2003/Netfilx-clone",
       featured: false,
+    },
+    {
+      id: 5,
+      title: "Event Booking Platform — Venuo",
+      description:
+        "A dynamic full-stack event booking platform that allows users to browse, book, and manage events with real-time updates, secure online payments, QR-based ticketing, and an admin dashboard for event and revenue management.",
+      image: Venuo,
+      github: "https://github.com/abhijith-babu-2003/EVENT-FRONTEND",
+      live: "https://venuo.abhijith.site/",
+      featured: true,
+    },
+    {
+      id: 6,
+      title: "User Management System",
+      description:
+        "A full-stack user management system featuring role-based access control and an admin dashboard. Built with a scalable backend architecture, strong state management, secure authentication, and a modern responsive UI.",
+      image: userManagement,
+      github: "https://github.com/abhijith-babu-2003/USM-REACT-REDUX",
+      featured: false,
+    },
+    {
+      id: 7,
+      title: "Task Manager",
+      description:
+        "A full-featured task management platform to organize, track, and prioritize daily tasks. Includes secure authentication, real-time updates, interactive progress charts, and a responsive user-friendly interface.",
+      image: taskManager,
+      github: "https://github.com/abhijith-babu-2003/task-manager-nextjs",
+      live: "https://task.abhijith.site/",
+      featured: false,
+    },
+    {
+      id: 8,
+      title: "Live Classroom Platform",
+      description:
+        "A real-time live classroom platform enabling teachers and students to conduct interactive video sessions with screen sharing, chat, and collaborative whiteboard support. Features low-latency WebRTC streaming, real-time communication, and a responsive UI optimized for all devices.",
+      image: liveClassroom, 
+      github: "https://github.com/abhijith-babu-2003/MEET-FRONTEND",
+      live: "https://liveclassroom.abhijith.site/", 
+      featured: true,
     },
   ];
 
   const scrollLeft = () => {
-    document.getElementById('projects-container').scrollBy({ left: -400, behavior: 'smooth' });
+    document
+      .getElementById("projects-container")
+      .scrollBy({ left: -400, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    document.getElementById('projects-container').scrollBy({ left: 400, behavior: 'smooth' });
+    document
+      .getElementById("projects-container")
+      .scrollBy({ left: 400, behavior: "smooth" });
   };
 
   return (
-    <section id="projects" className="min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800">
+    <section
+      id="projects"
+      className="min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800"
+    >
       {/* Header */}
       <div className="text-center mb-16">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-white">
@@ -71,11 +127,11 @@ const Projects = () => {
         >
           <FaChevronLeft size={20} />
         </button>
-        
+
         <div className="text-center">
           <p className="text-gray-400 text-sm">Scroll to explore projects</p>
         </div>
-        
+
         <button
           onClick={scrollRight}
           className="p-3 rounded-full bg-gray-800/60 backdrop-blur-sm border border-gray-600/50 text-gray-300 hover:text-white hover:bg-gray-700/60 transition-all duration-300 hover:scale-110"
@@ -90,8 +146,8 @@ const Projects = () => {
           id="projects-container"
           className="flex gap-8 overflow-x-auto scrollbar-hide pb-4 px-4"
           style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none'
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
           }}
         >
           {projectList.map((project) => (
@@ -130,26 +186,34 @@ const Projects = () => {
                 </p>
 
                 {/* Action Buttons */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-white transition-colors duration-200 hover:scale-110 transform"
-                      title="View Source"
-                    >
-                      <FaGithub size={20} />
-                    </a>
-                  </div>
-                  
-                  {/* Tech Stack Indicators */}
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                  </div>
-                </div>
+               <div className="flex items-center justify-between">
+  <div className="flex items-center gap-4">
+    {/* GitHub */}
+    <a
+      href={project.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
+      title="View Source Code"
+    >
+      <FaGithub size={20} />
+    </a>
+
+    {/* Live Demo (only if exists) */}
+    {project.live && (
+      <a
+        href={project.live}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-400 hover:text-green-400 transition-all duration-200 hover:scale-110"
+        title="View Live Demo"
+      >
+        <FaExternalLinkAlt size={18} />
+      </a>
+    )}
+  </div>
+</div>
+
               </div>
             </div>
           ))}
