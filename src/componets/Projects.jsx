@@ -1,236 +1,322 @@
-import React from "react";
-import {
-  FaGithub,
-  FaExternalLinkAlt,
-  FaStar,
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
+import React, { useRef, useEffect, useState } from 'react';
+import { FaGithub, FaExternalLinkAlt, FaStar } from "react-icons/fa";
+
+// Import images - paths relative to this file
 import ai from "../assets/ai.png";
 import chat from "../assets/Chat.png";
 import ecommerce from "../assets/e-commerce.png";
-import netflix from "../assets/netflix.png";
 import userManagement from "../assets/userManagement.png";
 import taskManager from "../assets/taskManager.png";
 import Venuo from "../assets/Venuo.png";
-import liveClassroom from "../assets/liveClassroom.png"
+import liveClassroom from "../assets/liveClassroom.png";
+
+const projectList = [
+  {
+    id: 1,
+    title: "Live Classroom Platform",
+    description: "Real-time live classroom with WebRTC + mediasoup for HD video conferencing, screen sharing, collaborative whiteboard, and Socket.IO chat. Low-latency streaming optimised for both desktop and mobile.",
+    image: liveClassroom,
+    github: "https://github.com/abhijith-babu-2003/MEET-FRONTEND",
+    live: "https://liveclassroom.abhijith.site/",
+    tags: ["WebRTC", "mediasoup", "Socket.IO"],
+    featured: true,
+  },
+  {
+    id: 2,
+    title: "Event Booking — Venuo",
+    description: "Full-stack event platform with Stripe payments, QR-code ticketing, Cloudinary media, and an admin dashboard with revenue analytics. Built with Redux Toolkit and scalable API architecture.",
+    image: Venuo,
+    github: "https://github.com/abhijith-babu-2003/EVENT-FRONTEND",
+    live: "https://event-frontend-wheat.vercel.app/",
+    tags: ["Stripe", "Redux Toolkit", "QR Code"],
+    featured: true,
+  },
+  {
+    id: 3,
+    title: "Chat Application",
+    description: "Real-time messaging platform with custom chat rooms, direct messaging, and WebSocket-based instant updates. Secured with JWT token-based authentication.",
+    image: chat,
+    github: "https://github.com/abhijith-babu-2003/CHAT-APPLICATION-FRONTEND",
+    live: "https://chat-application-frontend-nine-rho.vercel.app/",
+    tags: ["Socket.IO", "JWT", "React"],
+    featured: true,
+  },
+  {
+    id: 4,
+    title: "E-Commerce Platform",
+    description: "Scalable archery e-commerce platform with cart, wishlist, checkout, order tracking, and Razorpay payments. Features an admin dashboard with analytics and automated invoice generation.",
+    image: ecommerce,
+    github: "https://github.com/abhijith-babu-2003/ArrowMart",
+    live: null,
+    tags: ["Razorpay", "Node.js", "MongoDB"],
+    featured: true,
+  },
+  {
+    id: 5,
+    title: "Task Manager",
+    description: "Next.js task management app with secure JWT auth, real-time SWR updates, interactive Recharts progress visualisation, and MongoDB persistence.",
+    image: taskManager,
+    github: "https://github.com/abhijith-babu-2003/task-manager-nextjs",
+    live: "https://task-manager-nextjs-nine.vercel.app/login",
+    tags: ["Next.js", "SWR", "Recharts"],
+    featured: false,
+  },
+  {
+    id: 6,
+    title: "AI Assistant",
+    description: "AI-powered visual generation tool using OpenAI's API to create stunning visuals from text prompts. Clean, minimal UI with responsive design.",
+    image: ai,
+    github: "https://github.com/abhijith-babu-2003/AI-Assistant",
+    live: null,
+    tags: ["OpenAI", "React", "API"],
+    featured: false,
+  },
+  {
+    id: 7,
+    title: "User Management System",
+    description: "Full-stack user management with role-based access control, admin dashboard, image uploads via Cloudinary, and Redux state management.",
+    image: userManagement,
+    github: "https://github.com/abhijith-babu-2003/USM-REACT-REDUX",
+    live: null,
+    tags: ["Redux", "Cloudinary", "RBAC"],
+    featured: false,
+  },
+];
+
+const useReveal = (ref) => {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+      { threshold: 0.05 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [ref]);
+};
+
+const ProjectCard = ({ project, index }) => {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        border: `1px solid ${hovered ? 'rgba(201,168,76,0.3)' : 'var(--border)'}`,
+        borderRadius: '16px',
+        overflow: 'hidden',
+        background: 'var(--surface-2)',
+        transition: 'all 0.4s cubic-bezier(0.22,1,0.36,1)',
+        transform: hovered ? 'translateY(-6px)' : 'none',
+        boxShadow: hovered ? '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.1)' : 'none',
+        animationDelay: `${index * 0.1}s`,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {/* Image */}
+      <div style={{
+        position: 'relative',
+        height: '200px',
+        overflow: 'hidden',
+        background: 'var(--surface-3)',
+      }}>
+        <img
+          src={project.image}
+          alt={project.title}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            transition: 'transform 0.6s cubic-bezier(0.22,1,0.36,1)',
+            transform: hovered ? 'scale(1.07)' : 'scale(1)',
+          }}
+        />
+        {/* Dark overlay on hover */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to top, rgba(13,13,13,0.7) 0%, transparent 60%)',
+          opacity: hovered ? 1 : 0.4,
+          transition: 'opacity 0.4s',
+        }} />
+        {/* Featured badge */}
+        {project.featured && (
+          <div style={{
+            position: 'absolute',
+            top: '12px',
+            right: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            padding: '4px 10px',
+            borderRadius: '100px',
+            background: 'rgba(201,168,76,0.15)',
+            border: '1px solid rgba(201,168,76,0.4)',
+            backdropFilter: 'blur(8px)',
+          }}>
+            <FaStar style={{ color: 'var(--gold)', fontSize: '10px' }} />
+            <span style={{ color: 'var(--gold)', fontSize: '11px', fontWeight: 500 }}>Featured</span>
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <h3 style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '22px',
+          fontWeight: 400,
+          color: hovered ? 'var(--gold)' : 'var(--text-primary)',
+          margin: '0 0 10px',
+          letterSpacing: '-0.01em',
+          transition: 'color 0.3s',
+          lineHeight: 1.2,
+        }}>
+          {project.title}
+        </h3>
+
+        <p style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: '14px',
+          fontWeight: 300,
+          color: 'var(--text-secondary)',
+          lineHeight: 1.7,
+          margin: '0 0 16px',
+          flex: 1,
+        }}>
+          {project.description}
+        </p>
+
+        {/* Tags */}
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '20px' }}>
+          {project.tags.map(tag => (
+            <span key={tag} style={{
+              padding: '3px 10px',
+              borderRadius: '100px',
+              border: '1px solid var(--border)',
+              fontSize: '11px',
+              color: 'var(--text-muted)',
+              fontFamily: 'var(--font-body)',
+              letterSpacing: '0.04em',
+            }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Links */}
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '13px',
+              color: 'var(--text-secondary)',
+              textDecoration: 'none',
+              fontFamily: 'var(--font-body)',
+              fontWeight: 400,
+              transition: 'color 0.2s',
+              padding: '6px 0',
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = 'var(--text-primary)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}
+          >
+            <FaGithub size={15} /> Source
+          </a>
+
+          {project.live && (
+            <>
+              <div style={{ width: '1px', height: '14px', background: 'var(--border)' }} />
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '13px',
+                  color: 'var(--teal)',
+                  textDecoration: 'none',
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 500,
+                  transition: 'color 0.2s',
+                  padding: '6px 0',
+                }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '0.75'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+              >
+                <FaExternalLinkAlt size={12} /> Live Demo
+              </a>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Projects = () => {
-  const projectList = [
-    {
-      id: 1,
-      title: "E-commerce Platform",
-      description:
-        " A fully functional e-commerce platform built for optimal scalability and performance. Features include real-time updates, secure payment processing, and advanced inventory management systems.",
-      image: ecommerce,
-      github: "https://github.com/abhijith-babu-2003/ArrowMart",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "AI Assistant",
-      description:
-        " An AI-powered tool that generates stunning visuals from text prompts using OpenAI’s technology..",
-      image: ai,
-      github: "https://github.com/abhijith-babu-2003/AI-Assistant",
-      featured: false,
-    },
-    {
-      id: 3,
-      title: "Chat Application",
-      description:
-        "A real-time chat application with WebSocket support for instant messaging, featuring end-to-end encryption, file sharing capabilities, and multi-platform synchronization.",
-      image: chat,
-      github: "https://github.com/abhijith-babu-2003/CHAT-APPLICATION-FRONTEND",
-       live: "https://vox.abhijith.site/",
-      featured: true,
-    },
-    {
-      id: 4,
-      title: "Netflix Clone",
-      description:
-        "A Netflix-inspired streaming platform with movie listings, trailers, user authentication, personalized recommendations, and responsive design for all devices.",
-      image: netflix,
-      github: "https://github.com/abhijith-babu-2003/Netfilx-clone",
-      featured: false,
-    },
-    {
-      id: 5,
-      title: "Event Booking Platform — Venuo",
-      description:
-        "A dynamic full-stack event booking platform that allows users to browse, book, and manage events with real-time updates, secure online payments, QR-based ticketing, and an admin dashboard for event and revenue management.",
-      image: Venuo,
-      github: "https://github.com/abhijith-babu-2003/EVENT-FRONTEND",
-      live: "https://venuo.abhijith.site/",
-      featured: true,
-    },
-    {
-      id: 6,
-      title: "User Management System",
-      description:
-        "A full-stack user management system featuring role-based access control and an admin dashboard. Built with a scalable backend architecture, strong state management, secure authentication, and a modern responsive UI.",
-      image: userManagement,
-      github: "https://github.com/abhijith-babu-2003/USM-REACT-REDUX",
-      featured: false,
-    },
-    {
-      id: 7,
-      title: "Task Manager",
-      description:
-        "A full-featured task management platform to organize, track, and prioritize daily tasks. Includes secure authentication, real-time updates, interactive progress charts, and a responsive user-friendly interface.",
-      image: taskManager,
-      github: "https://github.com/abhijith-babu-2003/task-manager-nextjs",
-      live: "https://task.abhijith.site/",
-      featured: false,
-    },
-    {
-      id: 8,
-      title: "Live Classroom Platform",
-      description:
-        "A real-time live classroom platform enabling teachers and students to conduct interactive video sessions with screen sharing, chat, and collaborative whiteboard support. Features low-latency WebRTC streaming, real-time communication, and a responsive UI optimized for all devices.",
-      image: liveClassroom, 
-      github: "https://github.com/abhijith-babu-2003/MEET-FRONTEND",
-      live: "https://liveclassroom.abhijith.site/", 
-      featured: true,
-    },
-  ];
-
-  const scrollLeft = () => {
-    document
-      .getElementById("projects-container")
-      .scrollBy({ left: -400, behavior: "smooth" });
-  };
-
-  const scrollRight = () => {
-    document
-      .getElementById("projects-container")
-      .scrollBy({ left: 400, behavior: "smooth" });
-  };
+  const sectionRef = useRef(null);
+  useReveal(sectionRef);
 
   return (
     <section
       id="projects"
-      className="min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800"
+      ref={sectionRef}
+      className="reveal"
+      style={{
+        minHeight: '100vh',
+        padding: '120px 32px',
+        maxWidth: '1200px',
+        margin: '0 auto',
+      }}
     >
       {/* Header */}
-      <div className="text-center mb-16">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-white">
-          Stuff I've built
+      <div style={{ marginBottom: '72px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+          <div style={{ width: '24px', height: '1px', background: 'var(--gold)' }} />
+          <span style={{ fontSize: '12px', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 500 }}>
+            Work
+          </span>
+        </div>
+        <h2 style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 'clamp(36px, 5vw, 60px)',
+          fontWeight: 400,
+          color: 'var(--text-primary)',
+          letterSpacing: '-0.02em',
+          margin: '0 0 16px',
+          lineHeight: 1.1,
+        }}>
+          Things I've built
         </h2>
-        <div className="w-16 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+        <p style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: '16px',
+          fontWeight: 300,
+          color: 'var(--text-secondary)',
+          maxWidth: '480px',
+          lineHeight: 1.7,
+          margin: 0,
+        }}>
+          A selection of projects ranging from real-time video platforms to payment-integrated marketplaces.
+        </p>
       </div>
 
-      {/* Navigation Controls */}
-      <div className="flex items-center justify-between w-full max-w-6xl mb-8">
-        <button
-          onClick={scrollLeft}
-          className="p-3 rounded-full bg-gray-800/60 backdrop-blur-sm border border-gray-600/50 text-gray-300 hover:text-white hover:bg-gray-700/60 transition-all duration-300 hover:scale-110"
-        >
-          <FaChevronLeft size={20} />
-        </button>
-
-        <div className="text-center">
-          <p className="text-gray-400 text-sm">Scroll to explore projects</p>
-        </div>
-
-        <button
-          onClick={scrollRight}
-          className="p-3 rounded-full bg-gray-800/60 backdrop-blur-sm border border-gray-600/50 text-gray-300 hover:text-white hover:bg-gray-700/60 transition-all duration-300 hover:scale-110"
-        >
-          <FaChevronRight size={20} />
-        </button>
-      </div>
-
-      {/* Horizontal Projects Container */}
-      <div className="w-full max-w-7xl relative">
-        <div
-          id="projects-container"
-          className="flex gap-8 overflow-x-auto scrollbar-hide pb-4 px-4"
-          style={{
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-          }}
-        >
-          {projectList.map((project) => (
-            <div
-              key={project.id}
-              className="group relative bg-gray-800/40 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50 hover:border-gray-600/70 transition-all duration-500 hover:transform hover:scale-[1.05] flex-shrink-0 w-80 lg:w-96"
-            >
-              {/* Project Image Area */}
-              <div className="relative h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-
-              {/* Content */}
-              <div className="p-8">
-                {/* Title and Badge */}
-                <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-xl lg:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  {project.featured && (
-                    <div className="flex items-center text-yellow-400 ml-2">
-                      <FaStar size={16} />
-                    </div>
-                  )}
-                </div>
-
-                {/* Description */}
-                <p className="text-gray-300 text-sm lg:text-base leading-relaxed mb-6 line-clamp-4">
-                  {project.description}
-                </p>
-
-                {/* Action Buttons */}
-               <div className="flex items-center justify-between">
-  <div className="flex items-center gap-4">
-    {/* GitHub */}
-    <a
-      href={project.github}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
-      title="View Source Code"
-    >
-      <FaGithub size={20} />
-    </a>
-
-    {/* Live Demo (only if exists) */}
-    {project.live && (
-      <a
-        href={project.live}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-400 hover:text-green-400 transition-all duration-200 hover:scale-110"
-        title="View Live Demo"
-      >
-        <FaExternalLinkAlt size={18} />
-      </a>
-    )}
-  </div>
-</div>
-
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Subtle Gradient Fade Effects - Much Reduced */}
-        <div className="absolute top-0 left-0 w-6 h-full bg-gradient-to-r from-gray-900/80 to-transparent pointer-events-none z-10"></div>
-        <div className="absolute top-0 right-0 w-6 h-full bg-gradient-to-l from-gray-900/80 to-transparent pointer-events-none z-10"></div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="flex items-center space-x-2 mt-8">
-        {projectList.map((_, index) => (
-          <div
-            key={index}
-            className="w-2 h-2 rounded-full bg-gray-600 opacity-50"
-          ></div>
+      {/* Grid */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+        gap: '24px',
+      }}>
+        {projectList.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
         ))}
       </div>
     </section>
