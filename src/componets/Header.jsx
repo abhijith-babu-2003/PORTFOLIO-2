@@ -80,7 +80,7 @@ const Header = () => {
           </a>
 
           <a
-            href="https://drive.google.com/file/d/19ofZg9WWOwaHnKg7UhCFRQEstO94ZGs6/view?usp=sharing"
+            href="https://drive.google.com/file/d/1AUe_ZvopViJVRw8LZ9-vUx-obKrP94F3/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             className="w-9 h-9 flex items-center justify-center rounded-lg border border-white/10 text-gray-400 hover:text-yellow-400 hover:border-yellow-400 hover:bg-yellow-400/10 transition"
@@ -138,7 +138,7 @@ const Header = () => {
             </a>
 
             <a
-              href="https://drive.google.com/file/d/19ofZg9WWOwaHnKg7UhCFRQEstO94ZGs6/view?usp=sharing"
+              href="https://drive.google.com/file/d/1AUe_ZvopViJVRw8LZ9-vUx-obKrP94F3/view?usp=drive_link"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-yellow-400 text-xl"
