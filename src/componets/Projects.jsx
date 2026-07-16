@@ -60,7 +60,7 @@ const projectList = [
       "Full-stack event platform with Stripe payments, QR-code ticketing, Cloudinary media, and an admin dashboard with revenue analytics. Built with Redux Toolkit and scalable API architecture.",
     image: Venuo,
     github: "https://github.com/abhijith-babu-2003/EVENT-FRONTEND",
-    live: "https://event-frontend-wheat.vercel.app/",
+    live: "https://event-frontend-git-main-abhijithbroto-8585s-projects.vercel.app/",
     tags: ["Stripe", "Redux Toolkit", "QR Code"],
     featured: true,
   },
